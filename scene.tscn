@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7m7osw1x0byq"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ltwkf"]
+size = Vector2(10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6xxj0"]
+size = Vector2(2, 1.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4v5jd"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mavm"]
+resource_local_to_scene = true
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission_texture = SubResource("ViewportTexture_4v5jd")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wt5dj"]
+
+[sub_resource type="Sky" id="Sky_rwrgb"]
+sky_material = SubResource("ProceduralSkyMaterial_wt5dj")
+
+[sub_resource type="Environment" id="Environment_v3klm"]
+background_mode = 2
+sky = SubResource("Sky_rwrgb")
+tonemap_mode = 3
+
+[node name="Scene" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ltwkf")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1024, 768)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54188, 2.71299)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.137344, 0.69364, 3.42144e-16, 0.980955, 0.194234, -0.707107, -0.137344, 0.69364, 3.5, 1.87, 3.5)
+current = true
+
+[node name="Screen" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.08165e-12, 1.6, 2.08165e-12)
+mesh = SubResource("PlaneMesh_6xxj0")
+surface_material_override/0 = SubResource("StandardMaterial3D_5mavm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v3klm")
